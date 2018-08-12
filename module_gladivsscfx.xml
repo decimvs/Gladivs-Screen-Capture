@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_gladivsscfx" default="compile.module.gladivsscfx">
+  <dirname property="module.gladivsscfx.basedir" file="${ant.file.module_gladivsscfx}"/>
+  
+  <property name="module.jdk.home.gladivsscfx" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.gladivsscfx" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.gladivsscfx" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.gladivsscfx" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="gladivsscfx.output.dir" value="${module.gladivsscfx.basedir}/out/production/GladivsSCFx"/>
+  <property name="gladivsscfx.testoutput.dir" value="${module.gladivsscfx.basedir}/out/test/GladivsSCFx"/>
+  
+  <path id="gladivsscfx.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="gladivsscfx.module.production.classpath">
+    <path refid="${module.jdk.classpath.gladivsscfx}"/>
+    <path refid="library.org.hashids:hashids:1.0.3.classpath"/>
+    <path refid="library.com.1stleg:jnativehook:2.0.3.classpath"/>
+    <path refid="library.com.fasterxml.jackson.core:jackson-databind:2.9.4.classpath"/>
+    <path refid="library.libjitsi.classpath"/>
+  </path>
+  
+  <path id="gladivsscfx.runtime.production.module.classpath">
+    <pathelement location="${gladivsscfx.output.dir}"/>
+    <path refid="library.org.hashids:hashids:1.0.3.classpath"/>
+    <path refid="library.com.1stleg:jnativehook:2.0.3.classpath"/>
+    <path refid="library.com.fasterxml.jackson.core:jackson-databind:2.9.4.classpath"/>
+    <path refid="library.libjitsi.classpath"/>
+  </path>
+  
+  <path id="gladivsscfx.module.classpath">
+    <path refid="${module.jdk.classpath.gladivsscfx}"/>
+    <pathelement location="${gladivsscfx.output.dir}"/>
+    <path refid="library.org.hashids:hashids:1.0.3.classpath"/>
+    <path refid="library.com.1stleg:jnativehook:2.0.3.classpath"/>
+    <path refid="library.com.fasterxml.jackson.core:jackson-databind:2.9.4.classpath"/>
+    <path refid="library.libjitsi.classpath"/>
+  </path>
+  
+  <path id="gladivsscfx.runtime.module.classpath">
+    <pathelement location="${gladivsscfx.testoutput.dir}"/>
+    <pathelement location="${gladivsscfx.output.dir}"/>
+    <path refid="library.org.hashids:hashids:1.0.3.classpath"/>
+    <path refid="library.com.1stleg:jnativehook:2.0.3.classpath"/>
+    <path refid="library.com.fasterxml.jackson.core:jackson-databind:2.9.4.classpath"/>
+    <path refid="library.libjitsi.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.gladivsscfx">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.gladivsscfx">
+    <patternset refid="excluded.from.module.gladivsscfx"/>
+  </patternset>
+  
+  <path id="gladivsscfx.module.sourcepath">
+    <dirset dir="${module.gladivsscfx.basedir}">
+      <include name="src"/>
+      <include name="src/resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.gladivsscfx" depends="compile.module.gladivsscfx.production,compile.module.gladivsscfx.tests" description="Compile module GladivsSCFx"/>
+  
+  <target name="compile.module.gladivsscfx.production" depends="register.custom.compilers" description="Compile module GladivsSCFx; production classes">
+    <mkdir dir="${gladivsscfx.output.dir}"/>
+    <javac2 destdir="${gladivsscfx.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.gladivsscfx}/javac">
+      <compilerarg line="${compiler.args.gladivsscfx}"/>
+      <bootclasspath refid="gladivsscfx.module.bootclasspath"/>
+      <classpath refid="gladivsscfx.module.production.classpath"/>
+      <src refid="gladivsscfx.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.gladivsscfx"/>
+    </javac2>
+    
+    <copy todir="${gladivsscfx.output.dir}">
+      <fileset dir="${module.gladivsscfx.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.gladivsscfx.basedir}/src/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.gladivsscfx.tests" depends="register.custom.compilers,compile.module.gladivsscfx.production" description="compile module GladivsSCFx; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.gladivsscfx" description="cleanup module">
+    <delete dir="${gladivsscfx.output.dir}"/>
+    <delete dir="${gladivsscfx.testoutput.dir}"/>
+  </target>
+</project>

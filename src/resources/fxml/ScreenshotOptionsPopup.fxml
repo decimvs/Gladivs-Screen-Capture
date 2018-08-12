@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="apRootPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gespert.gladivs.GUI.OptionsPopup.Controllers.ScreenshotOptionsPopupController">
+   <children>
+      <VBox id="MainBox" fx:id="vboxButtonsContainer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox id="titolar" fx:id="titleBox" alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <ImageView id="icona" fitHeight="24.0" fitWidth="31.2" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/icona_sense_sombra.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Gladivs" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
