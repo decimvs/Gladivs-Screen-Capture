@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="gladivssc" default="all">
+  
+  
+  <property file="gladivssc.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+    <include name="*.swc"/>
+    <include name="*.war"/>
+    <include name="*.zip"/>
+    <include name="*.ane"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/access-bridge-64.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunmscapi.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.com.1stleg:jnativehook:2.0.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/1stleg/jnativehook/2.0.3/jnativehook-2.0.3.jar"/>
+  </path>
+  
+  <path id="library.com.fasterxml.jackson.core:jackson-databind:2.9.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/jackson/core/jackson-annotations/2.9.0/jackson-annotations-2.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/jackson/core/jackson-core/2.9.4/jackson-core-2.9.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/jackson/core/jackson-databind/2.9.4/jackson-databind-2.9.4.jar"/>
+  </path>
+  
+  <path id="library.libjitsi.classpath">
+    <pathelement location="D:/Llibreries/libjitsi-1059-x64/libjitsi.jar"/>
+  </path>
+  
+  <path id="library.org.hashids:hashids:1.0.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hashids/hashids/1.0.3/hashids-1.0.3.jar"/>
+  </path>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <fileset dir="${javac2.home}">
+      <include name="javac2.jar"/>
+      <include name="jdom.jar"/>
+      <include name="asm-all*.jar"/>
+      <include name="jgoodies-forms.jar"/>
+    </fileset>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  <import file="${basedir}/module_gladivs-screen-capture.xml"/>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.gladivs-screen-capture, clean.artifact.gladivssc" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.gladivs-screen-capture" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.gladivssc" value="${basedir}/out/artifacts/GladivsSC"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="artifact.temp.output.GladivsSC" value="${artifacts.temp.dir}/GladivsSC.jar"/>
+    <taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant" classpath="${jdk.home.1.8}/lib/ant-javafx.jar"/>
+  </target>
+  
+  <target name="clean.artifact.gladivssc" description="clean GladivsSC artifact output">
+    <delete dir="${artifact.output.gladivssc}"/>
+  </target>
+  
+  <target name="artifact.gladivssc" depends="init.artifacts, compile.module.gladivs-screen-capture" description="Build &#39;GladivsSC&#39; artifact" xmlns:fx="javafx:com.sun.javafx.tools.ant">
+    <mkdir dir="${artifact.output.gladivssc}"/>
+    <mkdir dir="${artifact.output.gladivssc}/lib"/>
+    <copy todir="${artifact.temp.output.GladivsSC}">
+      <fileset dir="${gladivs-screen-capture.output.dir}"/>
+    </copy>
+    <mkdir dir="${artifact.temp.output.GladivsSC}/META-INF"/>
+    <copy file="${basedir}/META-INF/MANIFEST.MF" tofile="${artifact.temp.output.GladivsSC}/META-INF/MANIFEST.MF"/>
+    <copy file="${path.variable.maven_repository}/com/1stleg/jnativehook/2.0.3/jnativehook-2.0.3.jar" tofile="${artifact.temp.output.GladivsSC}/lib/jnativehook-2.0.3.jar"/>
+    <copy file="D:/Llibreries/libjitsi-1059-x64/libjitsi.jar" tofile="${artifact.temp.output.GladivsSC}/lib/libjitsi.jar"/>
+    <copy file="${path.variable.maven_repository}/org/hashids/hashids/1.0.3/hashids-1.0.3.jar" tofile="${artifact.temp.output.GladivsSC}/lib/hashids-1.0.3.jar"/>
+    <copy file="${path.variable.maven_repository}/com/fasterxml/jackson/core/jackson-databind/2.9.4/jackson-databind-2.9.4.jar" tofile="${artifact.temp.output.GladivsSC}/lib/jackson-databind-2.9.4.jar"/>
+    <copy file="${path.variable.maven_repository}/com/fasterxml/jackson/core/jackson-annotations/2.9.0/jackson-annotations-2.9.0.jar" tofile="${artifact.temp.output.GladivsSC}/lib/jackson-annotations-2.9.0.jar"/>
+    <copy file="${path.variable.maven_repository}/com/fasterxml/jackson/core/jackson-core/2.9.4/jackson-core-2.9.4.jar" tofile="${artifact.temp.output.GladivsSC}/lib/jackson-core-2.9.4.jar"/>
+    <fx:fileset id="all_but_GladivsSC" dir="${artifact.temp.output.GladivsSC}" includes="**/*.jar">
+      <exclude name="GladivsSC.jar"/>
+    </fx:fileset>
+    <fx:fileset id="all_GladivsSC" dir="${artifact.temp.output.GladivsSC}" includes="**/*.jar"/>
+    <fx:application id="GladivsSC_id" name="GladivsSC" mainClass="org.gespert.gladivs.MainApp" version="0.8"/>
+    <fx:jar destfile="${artifact.temp.output.GladivsSC}/GladivsSC.jar">
+      <fx:application refid="GladivsSC_id"/>
+      <fileset dir="${artifact.temp.output.GladivsSC}" excludes="**/*.jar"/>
+      <fx:resources>
+        <fx:fileset refid="all_but_GladivsSC"/>
+      </fx:resources>
+      <manifest>
+        <attribute name="Implementation-Title" value="Gladivs Screen Capture"/>
+        <attribute name="Implementation-Version" value="0.8"/>
+        <attribute name="Implementation-Vendor" value="org.gespert"/>
+      </manifest>
+    </fx:jar>
+    <fx:deploy width="600" height="400" updatemode="background" outdir="${artifact.temp.output.GladivsSC}/deploy" outfile="GladivsSC">
+      <fx:application refid="GladivsSC_id"/>
+      <fx:info title="Gladivs Screen Capture" vendor="org.gespert"/>
+      <fx:resources>
+        <fx:fileset refid="all_GladivsSC"/>
+      </fx:resources>
+    </fx:deploy>
+    <copy todir="${artifact.output.gladivssc}">
+      <fileset dir="${artifact.temp.output.GladivsSC}/deploy"/>
+    </copy>
+    <delete includeemptydirs="true">
+      <fileset dir="${artifact.temp.output.GladivsSC}"/>
+    </delete>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.gladivssc" description="Build all artifacts">
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

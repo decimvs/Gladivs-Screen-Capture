@@ -1,0 +1,33 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" build-on-make="true" name="GladivsSC">
+    <output-path>$PROJECT_DIR$/out/artifacts/GladivsSC</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="org.gespert.gladivs.MainApp" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="icons">
+          <JavaFxApplicationIcons>
+            <option name="linuxIcon" value="$PROJECT_DIR$/src/resources/icons/icona_sense_sombra.png" />
+            <option name="windowsIcon" value="$PROJECT_DIR$/src/resources/icons/icona_sense_sombra.ico" />
+          </JavaFxApplicationIcons>
+        </option>
+        <option name="title" value="Gladivs Screen Capture" />
+        <option name="vendor" value="org.gespert" />
+        <option name="version" value="0.7" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="GladivsSC.jar">
+        <element id="module-output" name="Gladivs-Screen-Capture" />
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="library" level="project" name="com.1stleg:jnativehook:2.0.3" />
+        <element id="library" level="project" name="libjitsi" />
+        <element id="library" level="project" name="org.hashids:hashids:1.0.3" />
+        <element id="library" level="project" name="com.fasterxml.jackson.core:jackson-databind:2.9.4" />
+      </element>
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_gladivs-screen-capture" default="compile.module.gladivs-screen-capture">
+  <dirname property="module.gladivs-screen-capture.basedir" file="${ant.file.module_gladivs-screen-capture}"/>
+  
+  <property name="module.jdk.home.gladivs-screen-capture" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.gladivs-screen-capture" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.gladivs-screen-capture" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.gladivs-screen-capture" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="gladivs-screen-capture.output.dir" value="${module.gladivs-screen-capture.basedir}/out/production/Gladivs-Screen-Capture"/>
+  <property name="gladivs-screen-capture.testoutput.dir" value="${module.gladivs-screen-capture.basedir}/out/test/Gladivs-Screen-Capture"/>
+  
+  <path id="gladivs-screen-capture.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="gladivs-screen-capture.module.production.classpath">
+    <path refid="${module.jdk.classpath.gladivs-screen-capture}"/>
+    <path refid="library.com.1stleg:jnativehook:2.0.3.classpath"/>
+    <path refid="library.org.hashids:hashids:1.0.3.classpath"/>
+    <path refid="library.libjitsi.classpath"/>
+    <path refid="library.com.fasterxml.jackson.core:jackson-databind:2.9.4.classpath"/>
+  </path>
+  
+  <path id="gladivs-screen-capture.runtime.production.module.classpath">
+    <pathelement location="${gladivs-screen-capture.output.dir}"/>
+    <path refid="library.com.1stleg:jnativehook:2.0.3.classpath"/>
+    <path refid="library.org.hashids:hashids:1.0.3.classpath"/>
+    <path refid="library.libjitsi.classpath"/>
+    <path refid="library.com.fasterxml.jackson.core:jackson-databind:2.9.4.classpath"/>
+  </path>
+  
+  <path id="gladivs-screen-capture.module.classpath">
+    <path refid="${module.jdk.classpath.gladivs-screen-capture}"/>
+    <pathelement location="${gladivs-screen-capture.output.dir}"/>
+    <path refid="library.com.1stleg:jnativehook:2.0.3.classpath"/>
+    <path refid="library.org.hashids:hashids:1.0.3.classpath"/>
+    <path refid="library.libjitsi.classpath"/>
+    <path refid="library.com.fasterxml.jackson.core:jackson-databind:2.9.4.classpath"/>
+  </path>
+  
+  <path id="gladivs-screen-capture.runtime.module.classpath">
+    <pathelement location="${gladivs-screen-capture.testoutput.dir}"/>
+    <pathelement location="${gladivs-screen-capture.output.dir}"/>
+    <path refid="library.com.1stleg:jnativehook:2.0.3.classpath"/>
+    <path refid="library.org.hashids:hashids:1.0.3.classpath"/>
+    <path refid="library.libjitsi.classpath"/>
+    <path refid="library.com.fasterxml.jackson.core:jackson-databind:2.9.4.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.gladivs-screen-capture">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.gladivs-screen-capture">
+    <patternset refid="excluded.from.module.gladivs-screen-capture"/>
+  </patternset>
+  
+  <path id="gladivs-screen-capture.module.sourcepath">
+    <dirset dir="${module.gladivs-screen-capture.basedir}">
+      <include name="src"/>
+      <include name="src/resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.gladivs-screen-capture" depends="compile.module.gladivs-screen-capture.production,compile.module.gladivs-screen-capture.tests" description="Compile module Gladivs-Screen-Capture"/>
+  
+  <target name="compile.module.gladivs-screen-capture.production" depends="register.custom.compilers" description="Compile module Gladivs-Screen-Capture; production classes">
+    <mkdir dir="${gladivs-screen-capture.output.dir}"/>
+    <javac2 destdir="${gladivs-screen-capture.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.gladivs-screen-capture}/javac">
+      <compilerarg line="${compiler.args.gladivs-screen-capture}"/>
+      <bootclasspath refid="gladivs-screen-capture.module.bootclasspath"/>
+      <classpath refid="gladivs-screen-capture.module.production.classpath"/>
+      <src refid="gladivs-screen-capture.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.gladivs-screen-capture"/>
+    </javac2>
+    
+    <copy todir="${gladivs-screen-capture.output.dir}">
+      <fileset dir="${module.gladivs-screen-capture.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.gladivs-screen-capture.basedir}/src/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.gladivs-screen-capture.tests" depends="register.custom.compilers,compile.module.gladivs-screen-capture.production" description="compile module Gladivs-Screen-Capture; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.gladivs-screen-capture" description="cleanup module">
+    <delete dir="${gladivs-screen-capture.output.dir}"/>
+    <delete dir="${gladivs-screen-capture.testoutput.dir}"/>
+  </target>
+</project>
